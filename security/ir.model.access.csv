@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pet_pet_public,pet.pet.public,model_pet_pet,base.group_public,1,0,0,0
+access_pet_pet_user,pet.pet.user,model_pet_pet,group_pet_adoption_user,1,0,0,0
+access_pet_pet_manager,pet.pet.manager,model_pet_pet,group_pet_adoption_manager,1,1,1,1
+access_pet_breed_user,pet.breed.user,model_pet_breed,base.group_user,1,0,0,0
+access_pet_species_user,pet.species.user,model_pet_species,base.group_user,1,0,0,0
+access_pet_tag_user,pet.tag.user,model_pet_tag,base.group_user,1,0,0,0
+access_adoption_application_user,adoption.application.user,model_adoption_application,group_pet_adoption_user,1,1,1,0
+access_adoption_application_manager,adoption.application.manager,model_adoption_application,group_pet_adoption_manager,1,1,1,1
+access_adoption_application_stage_user,adoption.application.stage.user,model_adoption_application_stage,base.group_user,1,0,0,0

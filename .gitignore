@@ -1,0 +1,18 @@
+# Odoo and Python generated files
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE and editor configuration files
+.idea/
+.vscode/
+*.swp
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Odoo specific logs and sessions
+*.log
+sessions/
+filestore/

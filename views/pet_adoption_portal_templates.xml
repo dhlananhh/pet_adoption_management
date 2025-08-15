@@ -1,0 +1,126 @@
+<odoo>
+  <data>
+    <!-- List of Pets Template -->
+    <template id="pet_list_template" name="Available Pets">
+      <t t-call="website.layout">
+        <div id="wrap" class="oe_structure">
+          <section class="container my-5">
+            <h1 class="text-center mb-4">Our Adoptable Pets</h1>
+            <div class="row">
+              <t t-if="not pets">
+                <div class="col-12">
+                  <div class="alert alert-info text-center" role="alert">
+                    There are currently no pets available for adoption. Please check back later!
+                  </div>
+                </div>
+              </t>
+              <t t-foreach="pets" t-as="pet">
+                <div class="col-lg-4 col-md-6 mb-4">
+                  <div class="card h-100">
+                    <a t-attf-href="/pets/#{pet.id}">
+                      <img class="card-img-top" t-att-src="image_data_uri(pet.image)"
+                        alt="Pet Image" />
+                    </a>
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        <a t-attf-href="/pets/#{pet.id}" t-field="pet.name" />
+                      </h4>
+                      <h5>
+                        <t t-esc="pet.breed_id.name" />
+                      </h5>
+                      <p class="card-text" t-esc="pet.description"
+                        style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" />
+                    </div>
+                    <div class="card-footer text-center">
+                      <a t-attf-href="/pets/#{pet.id}" class="btn btn-primary">View Details</a>
+                    </div>
+                  </div>
+                </div>
+              </t>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <t t-call="website.pager" />
+              </div>
+            </div>
+          </section>
+        </div>
+      </t>
+    </template>
+
+    <!-- Pet Detail Page Template -->
+    <template id="pet_detail_template" name="Pet Details">
+      <t t-call="website.layout">
+        <div id="wrap" class="oe_structure">
+          <section class="container my-5">
+            <div class="row">
+              <div class="col-lg-6">
+                <img class="img-fluid rounded" t-att-src="image_data_uri(pet.image)"
+                  alt="Pet Detail Image" />
+              </div>
+              <div class="col-lg-6">
+                <h1 t-field="pet.name" />
+                <hr />
+                <p>
+                  <strong>Breed:</strong>
+                  <span t-field="pet.breed_id.name" />
+                </p>
+                <p>
+                  <strong>Age:</strong>
+                  <span t-field="pet.age" /> months</p>
+                <p>
+                  <strong>Gender:</strong>
+                  <span t-field="pet.gender" />
+                </p>
+                <div class="my-3">
+                  <t t-foreach="pet.tag_ids" t-as="tag">
+                    <span class="badge badge-info mr-1" t-field="tag.name" />
+                  </t>
+                </div>
+                <p t-field="pet.description" />
+                <form t-if="request.session.uid" action="/pets/apply" method="post">
+                  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                  <input type="hidden" name="pet_id" t-att-value="pet.id" />
+                  <div class="form-group">
+                    <label for="motivation">Why do you want to adopt <t t-esc="pet.name" /> ?</label>
+                    <textarea class="form-control" name="motivation" id="motivation" rows="4"
+                      required="1"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-lg mt-3">Apply for Adoption</button>
+                </form>
+                <div t-if="not request.session.uid" class="alert alert-warning mt-4"> Please <a
+                    href="/web/login">log in</a> to apply for adoption. </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </t>
+    </template>
+
+    <!-- Application Thank You Page -->
+    <template
+      id="application_thank_you_template" name="Thank You">
+      <t t-call="website.layout">
+        <div id="wrap">
+          <div class="container my-5 text-center">
+            <h1 class="display-4">Thank You!</h1>
+            <p class="lead">Your adoption application has been submitted successfully.</p>
+            <p>We will review it and get back to you soon. You can check the status of your
+              application in your portal.</p>
+            <a href="/my/home" class="btn btn-primary mr-2">My Portal</a>
+            <a href="/pets" class="btn btn-secondary">Back to Pets</a>
+          </div>
+        </div>
+      </t>
+    </template>
+
+    <!-- Website Menu Item -->
+    <record
+      id="menu_pets" model="website.menu">
+      <field name="name">Pets</field>
+      <field name="url">/pets</field>
+      <field name="parent_id" ref="website.main_menu" />
+      <field name="sequence" type="int">30</field>
+    </record>
+  </data>
+</odoo>

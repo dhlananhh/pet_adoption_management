@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- Template for the list of pets -->
+  <template id="pet_list_template" name="Available Pets">
+    <t t-call="website.layout">
+      <div id="wrap">
+        <div class="container py-5">
+          <h1 class="text-center mb-4">Meet Our Adorable Pets</h1>
+          <div class="row">
+            <t t-foreach="pets" t-as="pet">
+              <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                  <a t-attf-href="/pets/{{ pet.id }}">
+                    <img t-att-src="image_data_uri(pet.avatar)" class="card-img-top" alt="Pet Image"
+                      style="height: 250px; object-fit: cover;" />
+                  </a>
+                  <div class="card-body">
+                    <h4 class="card-title">
+                      <a t-attf-href="/pets/{{ pet.id }}" t-field="pet.name" />
+                    </h4>
+                    <p class="card-text">
+                      <t t-out="pet.breed_id.name or 'Mixed Breed'" /> | <t t-out="pet.age" />
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </t>
+          </div>
+        </div>
+      </div>
+    </t>
+  </template>
+
+  <!-- Template for the detail page of a single pet -->
+  <template id="pet_detail_template" name="Pet Profile">
+    <t t-call="website.layout">
+      <div id="wrap">
+        <div class="container py-5">
+          <div class="row">
+            <div class="col-lg-6">
+              <img t-att-src="image_data_uri(pet.avatar)" class="img-fluid rounded" alt="Pet Image" />
+            </div>
+            <div class="col-lg-6">
+              <h1 t-field="pet.name" />
+              <hr />
+              <p>
+                <strong>Status:</strong>
+                <span class="badge badge-success" t-field="pet.status" />
+              </p>
+              <p>
+                <strong>Age:</strong>
+                <span t-field="pet.age" />
+              </p>
+              <p>
+                <strong>Gender:</strong>
+                <span t-field="pet.gender" />
+              </p>
+              <p>
+                <strong>Breed:</strong>
+                <span t-out="pet.breed_id.name or 'Mixed Breed'" />
+              </p>
+              <div class="mb-3">
+                <t t-foreach="pet.tag_ids" t-as="tag">
+                  <span class="badge badge-info mr-1" t-field="tag.name" />
+                </t>
+              </div>
+              <h3>Their Story</h3>
+              <p t-field="pet.story" />
+              <a t-attf-href="/pets/{{ pet.id }}/apply" class="btn btn-primary btn-lg mt-3">
+                <i class="fa fa-heart" /> Apply to Adopt Me! </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </t>
+  </template>
+
+  <!-- Template for the Adoption Application Form -->
+  <template id="pet_apply_form_template" name="Adoption Application">
+    <t t-call="website.layout">
+      <div id="wrap">
+        <div class="container py-5">
+          <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+              <h1>Adoption Application for <span t-field="pet.name" /></h1>
+              <p>Thank you for your interest! Please fill out the form below.</p>
+              <form t-attf-action="/pets/{{ pet.id }}/apply" method="POST">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                <div class="form-group">
+                  <label for="full_name">Full Name</label>
+                  <input type="text" class="form-control" name="full_name" required="1" />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control" name="email" required="1" />
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <input type="text" class="form-control" name="phone" />
+                </div>
+                <hr />
+                <h4>Tell us about yourself</h4>
+                <div class="form-group">
+                  <label for="experience">Please describe your previous experience with pets.</label>
+                  <textarea class="form-control" name="experience" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="household_info">Who lives in your home? (adults, children, other pets)</label>
+                  <textarea class="form-control" name="household_info" rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg">Submit Application</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </t>
+  </template>
+
+  <!-- Template for the Thank You page -->
+  <template id="pet_apply_thank_you_template" name="Thank You">
+    <t t-call="website.layout">
+      <div id="wrap">
+        <div class="container py-5 text-center">
+          <i class="fa fa-check-circle fa-5x text-success mb-3" />
+          <h1>Thank You!</h1>
+          <p class="lead">Your application for <strong t-field="pet.name" /> has been received.</p>
+          <p>Our adoption team will review it and get in touch with you soon. Please check your
+            email for a confirmation.</p>
+          <a href="/pets" class="btn btn-secondary mt-3">Back to Available Pets</a>
+        </div>
+      </div>
+    </t>
+  </template>
+</odoo>

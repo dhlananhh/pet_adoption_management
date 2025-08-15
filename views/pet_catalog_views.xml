@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <menuitem id="menu_pet_adoption_root"
+    name="Pet Adoption"
+    sequence="10" />
+
+  <menuitem id="menu_pet_adoption_catalogs"
+    name="Configuration"
+    parent="menu_pet_adoption_root"
+    sequence="100" />
+
+  <record id="pet_species_view_tree" model="ir.ui.view">
+    <field name="name">pet.species.view.tree</field>
+    <field name="model">pet.species</field>
+    <field name="arch" type="xml">
+      <tree editable="bottom">
+        <field name="name" />
+      </tree>
+    </field>
+  </record>
+  <record id="pet_species_action" model="ir.actions.act_window">
+    <field name="name">Species</field>
+    <field name="res_model">pet.species</field>
+    <field name="view_mode">tree</field>
+  </record>
+  <menuitem id="menu_pet_species_action"
+    name="Species"
+    action="pet_species_action"
+    parent="menu_pet_adoption_catalogs"
+    sequence="10" />
+
+  <record id="pet_breed_view_tree" model="ir.ui.view">
+    <field name="name">pet.breed.view.tree</field>
+    <field name="model">pet.breed</field>
+    <field name="arch" type="xml">
+      <tree editable="bottom">
+        <field name="name" />
+      </tree>
+    </field>
+  </record>
+  <record id="pet_breed_action" model="ir.actions.act_window">
+    <field name="name">Breeds</field>
+    <field name="res_model">pet.breed</field>
+    <field name="view_mode">tree</field>
+  </record>
+  <menuitem id="menu_pet_breed_action"
+    name="Breeds"
+    action="pet_breed_action"
+    parent="menu_pet_adoption_catalogs"
+    sequence="20" />
+
+  <record id="pet_tag_view_tree" model="ir.ui.view">
+    <field name="name">pet.tag.view.tree</field>
+    <field name="model">pet.tag</field>
+    <field name="arch" type="xml">
+      <tree editable="bottom">
+        <field name="name" />
+        <field name="color" />
+      </tree>
+    </field>
+  </record>
+  <record id="pet_tag_action" model="ir.actions.act_window">
+    <field name="name">Tags</field>
+    <field name="res_model">pet.tag</field>
+    <field name="view_mode">tree</field>
+  </record>
+  <menuitem id="menu_pet_tag_action"
+    name="Tags"
+    action="pet_tag_action"
+    parent="menu_pet_adoption_catalogs"
+    sequence="30" />
+</odoo>

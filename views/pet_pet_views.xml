@@ -1,0 +1,116 @@
+<odoo>
+  <data>
+    <record id="pet_pet_view_form" model="ir.ui.view">
+      <field name="name">pet.pet.view.form</field>
+      <field name="model">pet.pet</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <field name="state" widget="statusbar" statusbar_visible="available,adopted" />
+          </header>
+          <sheet>
+            <field name="image" widget="image" class="oe_avatar" />
+            <div class="oe_title">
+              <h1>
+                <field name="name" />
+              </h1>
+            </div>
+            <group>
+              <group>
+                <field name="breed_id" />
+                <field name="species_id" />
+                <field name="gender" />
+                <field name="age" />
+              </group>
+              <group>
+                <field name="tag_ids" widget="many2many_tags" />
+              </group>
+            </group>
+            <notebook>
+              <page string="Description">
+                <field name="description" />
+              </page>
+              <page string="Adoption Applications">
+                <field name="adoption_application_ids" />
+              </page>
+            </notebook>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" />
+            <field name="activity_ids" />
+            <field name="message_ids" />
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <record id="pet_pet_view_tree" model="ir.ui.view">
+      <field name="name">pet.pet.view.tree</field>
+      <field name="model">pet.pet</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" />
+          <field name="breed_id" />
+          <field name="age" />
+          <field name="gender" />
+          <field name="state" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="pet_pet_view_kanban" model="ir.ui.view">
+      <field name="name">pet.pet.view.kanban</field>
+      <field name="model">pet.pet</field>
+      <field name="arch" type="xml">
+        <kanban>
+          <field name="name" />
+          <field name="breed_id" />
+          <field name="state" />
+          <templates>
+            <t t-name="kanban-box">
+              <div class="oe_kanban_global_click">
+                <div class="oe_kanban_image">
+                  <img t-att-src="kanban_image('pet.pet', 'image', record.id.raw_value)"
+                    alt="Pet Image" />
+                </div>
+                <div class="oe_kanban_details">
+                  <strong>
+                    <field name="name" />
+                  </strong>
+                  <div>
+                    <field name="breed_id" />
+                  </div>
+                  <div class="oe_kanban_bottom_right">
+                    <span
+                      t-attf-class="badge #{record.state.raw_value == 'available' ? 'badge-success' : 'badge-danger'}">
+                      <field name="state" />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+    <record id="pet_pet_action" model="ir.actions.act_window">
+      <field name="name">Pets</field>
+      <field name="res_model">pet.pet</field>
+      <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <menuitem
+      id="pet_pet_menu_root"
+      name="Pet Adoption"
+      web_icon="pet_adoption_management,static/description/icon.png"
+      sequence="10" />
+
+    <menuitem
+      id="pet_pet_menu_main"
+      name="Pets"
+      parent="pet_pet_menu_root"
+      action="pet_pet_action"
+      sequence="10" />
+  </data>
+</odoo>

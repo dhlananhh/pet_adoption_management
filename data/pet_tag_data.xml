@@ -1,0 +1,16 @@
+<odoo>
+  <data noupdate="1">
+    <record id="pet_tag_friendly" model="pet.tag">
+      <field name="name">Friendly</field>
+    </record>
+    <record id="pet_tag_vaccinated" model="pet.tag">
+      <field name="name">Vaccinated</field>
+    </record>
+    <record id="pet_tag_good_with_kids" model="pet.tag">
+      <field name="name">Good with Kids</field>
+    </record>
+    <record id="pet_tag_house_trained" model="pet.tag">
+      <field name="name">House-Trained</field>
+    </record>
+  </data>
+</odoo>

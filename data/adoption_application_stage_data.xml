@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+    <record id="stage_new" model="adoption.application.stage">
+      <field name="name">New</field>
+      <field name="sequence">10</field>
+    </record>
+    <record id="stage_in_review" model="adoption.application.stage">
+      <field name="name">In Review</field>
+      <field name="sequence">20</field>
+    </record>
+    <record id="stage_meet_greet" model="adoption.application.stage">
+      <field name="name">Meet &amp; Greet</field>
+      <field name="sequence">30</field>
+    </record>
+    <record id="stage_approved" model="adoption.application.stage">
+      <field name="name">Approved</field>
+      <field name="sequence">40</field>
+    </record>
+    <record id="stage_adopted" model="adoption.application.stage">
+      <field name="name">Adopted</field>
+      <field name="sequence">50</field>
+    </record>
+    <record id="stage_rejected" model="adoption.application.stage">
+      <field name="name">Rejected</field>
+      <field name="sequence">60</field>
+    </record>
+  </data>
+</odoo>
